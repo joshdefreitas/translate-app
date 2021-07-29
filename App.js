@@ -1,20 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, Picker, View } from "react-native";
+import React from "react";
+import { Text, StyleSheet, View } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+
+const langs = [
+  {
+    label: "English",
+    value: "en",
+  },
+  {
+    label: "Spanish",
+    value: "es",
+  },
+  {
+    label: "French",
+    value: "fr",
+  },
+];
 
 export default function App() {
-  const [selectedValue, setSelectedValue] = useState("java");
   return (
     <View style={styles.container}>
-      <Picker
-        selectedValue={selectedValue}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="English" value="eng" />
-        <Picker.Item label="Spanish" value="span" />
-      </Picker>
-      <StatusBar style="auto" />
+      <Text>{"Please select language"}</Text>
+      <RNPickerSelect
+        onValueChange={(value) => console.log(value)}
+        useNativeAndroidPickerStyle={false}
+        style={{
+          inputAndroid: { color: "black" },
+        }}
+        items={langs}
+      />
     </View>
   );
 }
@@ -23,7 +38,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    //alignItems: "center",
     justifyContent: "center",
   },
 });

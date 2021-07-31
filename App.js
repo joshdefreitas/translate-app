@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { Text, TextInput, StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
 const langs = [
@@ -19,8 +19,16 @@ const langs = [
 ];
 
 export default function App() {
+  const [text, setText] = useState("");
+
   return (
     <View style={styles.container}>
+      <TextInput
+        style={{ height: 40 }}
+        placeholder="Type here to translate!"
+        onChangeText={(text) => setText(text)}
+        defaultValue={text}
+      />
       <Text>{"Please select language"}</Text>
       <RNPickerSelect
         onValueChange={(value) => console.log(value)}
@@ -38,6 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    padding: 10,
     //alignItems: "center",
     justifyContent: "center",
   },

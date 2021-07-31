@@ -38,6 +38,12 @@ export default function App() {
         }}
         items={langs}
       />
+      <Text style={{ padding: 10 }}>
+        {text
+          .split(" ")
+          .map((word) => word && "lorem ipsum")
+          .join(" ")}
+      </Text>
     </View>
   );
 }

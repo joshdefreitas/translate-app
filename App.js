@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Text, TextInput, StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
+const APIKey = require("./APIKey.json");
+const url = require("./url.json");
 const langs = [
   {
     label: "English",

@@ -7,6 +7,8 @@ import LocalizedStrings from "react-localization";
 const APIKey = require("./APIKey.json");
 const url = require("./url.json");
 const auth = require("./auth.json");
+var langcode = "en";
+var phrase = "";
 
 const langs = [
   {
@@ -23,15 +25,6 @@ const langs = [
   },
 ];
 
-var translation = new LocalizedStrings({
-  en: {
-    tr: "english",
-  },
-  es: {
-    tr: "spanish",
-  },
-});
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -39,6 +32,7 @@ export default class App extends Component {
     this.state = {
       text: "",
       tlRes: "",
+      lang: "en",
       isLoading: true,
     };
   }
@@ -49,8 +43,8 @@ export default class App extends Component {
         url.url + "/v3/translate?version=2018-05-01",
         {
           body: JSON.stringify({
-            text: "Hello, how are you today",
-            model_id: "en-es",
+            text: phrase,
+            model_id: "en-" + langcode,
           }),
           headers: {
             Authorization: auth.auth,
@@ -76,15 +70,16 @@ export default class App extends Component {
         <TextInput
           style={{ height: 40 }}
           placeholder="Type here to translate!"
-          onChangeText={(text) => this.setState({ text })}
+          onChangeText={(text) => {
+            this.setState({ text });
+            phrase = text;
+            this.setState();
+          }}
           defaultValue={text}
         />
         <Text>{"Please select language"}</Text>
         <RNPickerSelect
-          onValueChange={(value) => {
-            translation.setLanguage(value);
-            this.setState({});
-          }}
+          onValueChange={(value) => (langcode = value)}
           useNativeAndroidPickerStyle={false}
           style={{
             inputAndroid: { color: "black" },

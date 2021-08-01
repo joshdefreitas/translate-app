@@ -31,6 +31,10 @@ export default class App extends Component {
     };
   }
 
+  translate = () => {
+    this.setState({ tlRes: "loremIpsum" });
+  };
+
   render() {
     const { text, tlRes } = this.state;
     return (
@@ -52,7 +56,7 @@ export default class App extends Component {
         />
         <Text style={{ padding: 10 }}>{tlRes}</Text>
 
-        <Button title="Translate" />
+        <Button title="Translate" onPress={this.translate} />
       </View>
     );
   }

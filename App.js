@@ -5,6 +5,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 const APIKey = require("./APIKey.json");
 const url = require("./url.json");
+const auth = require("./auth.json");
 
 const langs = [
   {
@@ -35,15 +36,14 @@ export default class App extends Component {
   translate = async () => {
     try {
       const response = await fetch(
-        "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/20d61b64-3c9a-4229-af3a-a9426f7eca4b/v3/translate?version=2018-05-01",
+        url.url + "/v3/translate?version=2018-05-01",
         {
           body: JSON.stringify({
             text: "Hello, how are you today",
             model_id: "en-es",
           }),
           headers: {
-            Authorization:
-              "Basic YXBpa2V5OkFlVUNWbmlYaXozbVRnWFdfZnB3eHZIeUxPUVMtbko2TTMyYm5jLVdONi1s",
+            Authorization: auth.auth,
             "Content-Type": "application/json",
           },
           method: "POST",

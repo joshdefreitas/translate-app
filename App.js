@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
 import { Text, TextInput, StyleSheet, View, Button } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import LocalizedStrings from "react-localization";
 
 const APIKey = require("./APIKey.json");
 const url = require("./url.json");

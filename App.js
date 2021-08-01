@@ -28,11 +28,35 @@ export default class App extends Component {
     this.state = {
       text: "",
       tlRes: "",
+      isLoading: true,
     };
   }
 
-  translate = () => {
-    this.setState({ tlRes: "loremIpsum" });
+  translate = async () => {
+    try {
+      const response = await fetch(
+        "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/20d61b64-3c9a-4229-af3a-a9426f7eca4b/v3/translate?version=2018-05-01",
+        {
+          body: JSON.stringify({
+            text: "Hello, how are you today",
+            model_id: "en-es",
+          }),
+          headers: {
+            Authorization:
+              "Basic YXBpa2V5OkFlVUNWbmlYaXozbVRnWFdfZnB3eHZIeUxPUVMtbko2TTMyYm5jLVdONi1s",
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        }
+      );
+
+      const tlJSON = await response.json();
+      this.setState({ tlRes: response.status.toString(10) });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
   };
 
   render() {

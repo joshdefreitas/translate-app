@@ -14,6 +14,7 @@
     "ibm-watson": "^6.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-localization": "^1.0.17",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-os": "^1.2.6",
     "react-native-picker-select": "^8.0.4",

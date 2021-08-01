@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
 import { Text, TextInput, StyleSheet, View, Button } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import LocalizedStrings from "react-localization";
 
 const APIKey = require("./APIKey.json");
 const url = require("./url.json");
@@ -21,6 +22,15 @@ const langs = [
     value: "fr",
   },
 ];
+
+var translation = new LocalizedStrings({
+  en: {
+    tr: "english",
+  },
+  es: {
+    tr: "spanish",
+  },
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -51,7 +61,7 @@ export default class App extends Component {
       );
 
       const tlJSON = await response.json();
-      this.setState({ tlRes: response.status.toString(10) });
+      this.setState({ tlRes: tlJSON.translations[0].translation.toString() });
     } catch (error) {
       console.log(error);
     } finally {
@@ -71,7 +81,10 @@ export default class App extends Component {
         />
         <Text>{"Please select language"}</Text>
         <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
+          onValueChange={(value) => {
+            translation.setLanguage(value);
+            this.setState({});
+          }}
           useNativeAndroidPickerStyle={false}
           style={{
             inputAndroid: { color: "black" },

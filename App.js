@@ -1,6 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
-import { Text, TextInput, StyleSheet, View, Button } from "react-native";
+import {
+  Text,
+  TextInput,
+  StyleSheet,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
 const APIKey = require("./APIKey.json");
@@ -19,8 +28,28 @@ const langs = [
     value: "es",
   },
   {
+    label: "Arabic",
+    value: "ar",
+  },
+  {
+    label: "Russian",
+    value: "ru",
+  },
+  {
+    label: "Japanese",
+    value: "ja",
+  },
+  {
     label: "French",
     value: "fr",
+  },
+  {
+    label: "Simplified Chinese",
+    value: "zh",
+  },
+  {
+    label: "Traditional Chinese",
+    value: "zh-TW",
   },
 ];
 
@@ -65,30 +94,47 @@ export default class App extends Component {
   render() {
     const { text, tlRes } = this.state;
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={{ height: 40 }}
-          placeholder="Type here to translate!"
-          onChangeText={(text) => {
-            this.setState({ text });
-            phrase = text;
-            this.setState();
-          }}
-          defaultValue={text}
-        />
-        <Text>{"Please select language"}</Text>
-        <RNPickerSelect
-          onValueChange={(value) => (langcode = value)}
-          useNativeAndroidPickerStyle={false}
-          style={{
-            inputAndroid: { color: "black" },
-          }}
-          items={langs}
-        />
-        <Text style={{ padding: 10 }}>{tlRes}</Text>
+      <ImageBackground
+        style={styles.background}
+        source={require("./assets/jetaim.jpg")}
+      >
+        <View style={styles.container}>
+          <TextInput
+            style={styles.input}
+            placeholder="Type here to translate!"
+            onChangeText={(text) => {
+              this.setState({ text });
+              phrase = text;
+              this.setState();
+            }}
+            defaultValue={text}
+          />
+          <RNPickerSelect
+            onValueChange={(value) => (langcode = value)}
+            useNativeAndroidPickerStyle={false}
+            placeholder={{
+              label: "Please select language",
+              value: "",
+            }}
+            style={{
+              inputAndroid: {
+                color: "black",
+                backgroundColor: "white",
+                borderRadius: 10,
+                padding: 10,
+              },
+            }}
+            items={langs}
+          />
+          <Text style={styles.output}>{tlRes}</Text>
 
-        <Button title="Translate" onPress={this.translate} />
-      </View>
+          <TouchableOpacity title="Translate" onPress={this.translate}>
+            <View style={styles.button}>
+              <Text style={styles.text}>Translate</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   }
 }
@@ -96,9 +142,47 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    padding: 10,
-    //alignItems: "center",
+    flexDirection: "column",
+  },
+  background: {
+    flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  input: {
+    padding: 10,
+    height: 150,
+    width: 300,
+    backgroundColor: "white",
+    borderRadius: 10,
+    textAlignVertical: "top",
+    marginTop: 150,
+    marginBottom: 20,
+  },
+  text: {
+    color: "steelblue",
+    fontWeight: "500",
+    fontSize: 25,
+  },
+  picker: {
+    color: "black",
+  },
+  button: {
+    alignSelf: "center",
+    backgroundColor: "powderblue",
+    color: "white",
+    borderRadius: 45,
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  output: {
+    width: 300,
+    height: 150,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10,
+    flexWrap: "wrap",
+    marginTop: 20,
   },
 });

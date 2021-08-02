@@ -96,7 +96,7 @@ export default class App extends Component {
     return (
       <ImageBackground
         style={styles.background}
-        source={require("./assets/jetaim.jpg")}
+        source={require("./assets/bgimage.jpg")}
       >
         <View style={styles.container}>
           <TextInput
@@ -108,6 +108,7 @@ export default class App extends Component {
               this.setState();
             }}
             defaultValue={text}
+            multiline={true}
           />
           <RNPickerSelect
             onValueChange={(value) => (langcode = value)}
@@ -126,7 +127,9 @@ export default class App extends Component {
             }}
             items={langs}
           />
-          <Text style={styles.output}>{tlRes}</Text>
+          <Text style={styles.output} multiline={true}>
+            {tlRes}
+          </Text>
 
           <TouchableOpacity title="Translate" onPress={this.translate}>
             <View style={styles.button}>
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
   text: {
     color: "steelblue",
     fontWeight: "500",
-    fontSize: 25,
+    fontSize: 20,
   },
   picker: {
     color: "black",
